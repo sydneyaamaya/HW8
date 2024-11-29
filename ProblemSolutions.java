@@ -81,7 +81,16 @@ class ProblemSolutions {
         ArrayList<Integer>[] adj = getAdjList(numExams, 
                                         prerequisites); 
 
-        // ADD YOUR CODE HERE - ADD YOUR NAME / SECTION AT TOP OF FILE
+        /*
+         * 1. check if graph is empty and if it is return true because there are no 
+         * prereqs so no cycles
+         * check if a graph is a cycle, if prereq[i] is also a prereq[j] it is a cycle
+         */
+        if (prerequisites = null ){
+            return true;
+        }
+        //traverse arraylist
+        
         return false;
 
     }

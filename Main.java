@@ -125,7 +125,7 @@ public class Main {
     if ( ! masterProgrammerFail && ! ps.canFinish(4, g3) ) {
       masterProgrammerFail = true;
       System.out.println("Master programmer error 3");
-    }
+    } 
 
     /*
      * Define additional graphs with and without cycles in these directed graphs.
