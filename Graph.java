@@ -103,8 +103,33 @@ public class Graph {
    */
   
   public int findRoot() {
-
-    // ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME/SECTION AT TOP OF FILE
-    return -1;
+    /**
+     * 1.create an array to store the number of edges coming from each vertex
+     * 2.use a for loop to to traverse each vertex's adj list (adjListArr[i])
+     * 3.use an inner for loop to traverse each list and add to the array 
+     * when an incoming edges (dest) is found
+     * 4.use a for loop to check how many incoming edges each vertex has
+     * 5.if a vertex has 0 incoming edges and foundRoot == -1, set foundRoot
+     * to the vertex's value
+     */
+    int[] incomingEdges = new int [numVertices];
+    int foundRoot = -1;
+    for (int i = 0; i < numVertices; i++){
+      //for each dest in the current list
+      for (int dest : adjListArr[i]){
+        incomingEdges[dest]++;
+      }
+    }
+    for (int j = 0; j < numVertices; j++){
+      //check if there are no incoming edges
+      if (incomingEdges[j] == 0){
+        //if != -1 then another root was already found 
+        if(foundRoot != -1){
+          return -1;
+        }
+        foundRoot = vertexValues.get(j);
+      }
+    }
+    return foundRoot;
   } 
 }
