@@ -80,19 +80,34 @@ class ProblemSolutions {
         // Build directed graph's adjacency list
         ArrayList<Integer>[] adj = getAdjList(numExams, 
                                         prerequisites); 
-
         /*
-         * 1. check if graph is empty and if it is return true because there are no 
-         * prereqs so no cycles
-         * check if a graph is a cycle, if prereq[i] is also a prereq[j] it is a cycle
+         * check if there is a cycle in the graph by using BFS and if not all 
+         * vertices are vistied there is a cycle
          */
-        if (prerequisites = null ){
-            return true;
+        int [] degrees = new int[numExams];
+        Queue<Integer> q = new LinkedList<>();
+        int visited = 0;
+        for (int i = 0; i < numExams; i++){
+            for (int j : adj[i]){
+                degrees[j]++;
+            }
         }
-        //traverse arraylist
-        
-        return false;
-
+        for (int i = 0; i < numExams; i++){
+            if(degrees[i] == 0){
+                q.offer(i);
+            }
+        }
+        while (!q.isEmpty()){
+            int i = q.poll();
+            visited++;
+            for (int v : adj[i]){
+                degrees[v]--;
+                if(degrees[v] == 0){
+                    q.offer(v);
+                }
+            }
+        }
+        return visited == numExams;
     }
 
 
@@ -151,7 +166,7 @@ class ProblemSolutions {
      *   Output: 2
      *   Explanation: The Adjacency Matrix defines an
      *   undirected graph of 3 nodes (indexed 0 to 2).
-     *   Where nodes 0 and 1 aee connected, and node 2
+     *   Where nodes 0 and 1 are connected, and node 2
      *   is NOT connected. This forms two groups of
      *   nodes.
      *
@@ -198,10 +213,25 @@ class ProblemSolutions {
                 }
             }
         }
-
-        // YOUR CODE GOES HERE - you can add helper methods, you do not need
-        // to put all code in this method.
-        return -1;
+        /**
+         * use DFS to detect cycles in undirected graph
+         */
+        Set<Integer> visited = new HashSet<>();
+        int groups = 0;
+        for (int k = 0; k < numNodes; k++){
+            if(!visited.contains(k)){
+                groups++;
+                dfs(k, graph, visited);
+            }
+        }
+        return groups;
     }
-
+    private void dfs(int k, Map<Integer, List<Integer>> graph, Set<Integer> visited){
+        visited.add(k);
+        for (int n : graph.getOrDefault(k, Collections.emptyList())){
+            if(!visited.contains(n)){
+                dfs(n, graph, visited);
+            }
+        }
+    }
 }
